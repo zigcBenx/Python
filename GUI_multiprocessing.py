@@ -5,6 +5,7 @@ and the other is runing a motor(Or just printing ON and OFF in this case),...
 GUI process writes value of slider to file when slider is changed, wheter
 motor process is reading the same file and apply this value to motor's speed
 
+GUI has only a slider which is for controling the speed of motor
 '''
 
 
