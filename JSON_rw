@@ -1,0 +1,51 @@
+'''
+Here is the code of Python application that reads and writes data to JSON file.
+From YOutube Tutorial
+
+This code is allowed to be reproduced! #LOVE OPEN SOURCE
+author:Benx
+Benxlabs
+'''
+
+from PyQt5 import QtWidgets, uic
+from PyQt5.QtWidgets import *
+import json
+
+app = QtWidgets.QApplication([])
+dlg = uic.loadUi("test.ui")
+   
+def addItem():
+    if not dlg.lineEdit_item.text()=="":
+        dlg.listWidget.addItem(dlg.lineEdit_item.text())
+    else:
+        show_message("Warning!","You have to type at least one element")
+
+    with open('data.json','r') as file:
+        data = json.load(file)
+        
+    data["items"].append(dlg.lineEdit_item.text())
+    
+    with open('data.json','w') as file:
+        json.dump(data,file)
+
+    dlg.lineEdit_item.setText("")
+
+def show_message(title="Test", message="Test"):
+    QMessageBox.information(None,title,message)
+
+
+def main():
+    with open('data.json','r') as file:
+        data = json.load(file)
+
+    for item in data["items"]:
+        dlg.listWidget.addItem(item)
+
+if __name__ == "__main__":
+    main()
+
+dlg.pushButton_addItem.clicked.connect(addItem)
+dlg.lineEdit_item.returnPressed.connect(addItem)
+
+dlg.show()
+app.exec()
